@@ -1,0 +1,7 @@
+0. Create a baseline file to keep me focused.
+1. Set up github repository to organise and document my learning path.
+2. Refresh my git and github skills.
+3. Create a file to keep track of my total progress.
+4. Create a file to keep track of my main tasks.
+5. Create a directory to keep my git progress organised.
+6. Create a directory to keep my fastai progress organised.

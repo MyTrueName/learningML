@@ -1,0 +1,5 @@
+0. Refocused myself. Created a reminder to keep me focused.
+1. Started refreshing my git(hub) skills. This will help me with development and finding jobs in the future.
+2. Created github repository 'https://github.com/MyTrueName/learningML'.
+3. Learned basics of git. Still having problems with the concept/commands of remote branches, but local things and workflow seems good enough.
+4. Learned basics of github and working with remote repositories. I think this is enough to do my work.

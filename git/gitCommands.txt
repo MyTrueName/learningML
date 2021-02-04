@@ -1,0 +1,188 @@
+--------------------------------------------------------
+INSTALLING
+
+git config --global user.name "User Name"
+git config --global user.email "email@domain.com"
+git config --global core.editor vim
+	those commands set global variables
+
+
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.close '!shutdown'   (if non-git command, need to add ! before)
+	those commands add aliases to make git easier to use
+
+
+--------------------------------------------------------
+INITIALISING REPOSITORY, CLONIG
+
+git init
+	create git repoitory in the current directory
+
+git clone http://oldrepo.com ./
+	clones remote repository to current directory
+
+
+
+--------------------------------------------------------
+WORKING
+
+
+git commit
+git commit -m "quick message"
+	different ways to commit changes in local repository
+
+git commit -a
+	no need to stage files, all modified and deleted files are added, new files not affected
+
+git commit --amend
+	redo a commit, add forgotten files, correct typos etc, author and time same as the original commit
+
+git add file.txt            
+	adds a changed file to next commit - stage a file
+git rm
+	remove staged file
+git reset <file.txt>
+	remove previously staged file from next commit - unstage
+git reset HEAD
+	remove all staged files
+git checkout <file.txt>  
+	revert unstaged changes in a file to last commit state
+git checkout *
+	revert all unstaged files to last commit state
+git checkout <commitname>^^
+	switches to a second commit before <commitname>
+git revert <oldercommit>
+	copies <oldercommit> state and add next commit with same state as <oldercommit>
+
+
+---------------------------------------------------------
+STATUS, INFORMATIONS ETC
+
+git status
+git status -s
+	shows status of current staged files and working directory, -s for short
+git log
+	shows commits
+git log -p
+	shows commits and patches
+git log -2
+	shows last 2 commits
+git log --stat
+	shows stats of commits (how many, what file etc)
+git log -S <name_function>
+	shows commits with patches that modified <name_function>
+git log --all --oneline --graph
+	nice representation of repository tree
+git branch --merged; git branch --no-merged
+	shows merged or not merged branches into current branch
+
+
+
+
+
+
+
+---------------------------------------------------------
+CREATING AND MOVING BRANCHES
+
+
+git branch <branchname>
+	creates a new branch
+git branch -d <branchname>
+	deletes a branch
+t branch -d -r <remotename>/<remotebranchname>
+	deletes a tracking branch from local repository
+
+git switch <branchname>
+git checkout <branchname>
+	switches working directory to a branch
+
+git checkout -b <branchname>
+	creates and switches to a branch
+
+git branch -f <branchname> <commitname> 
+	moves a branch to a specified commit
+
+git branch --move <oldname> <newname>
+	renames a branch
+
+-------------------------------------------------------
+MOVING BRANCHES AND COMMITS
+
+
+
+git reset HEAD^
+git reset <branchname>
+git reset <commitname>
+	moves a branch to a specified commit
+
+git merge <branchname>
+	merges branchname into current branch, old branch still exist, git branch -d <oldbranch> after successful merge
+
+git rebase <branchname>
+	takes commits from current branch and moves them to the end of <branchname> current branch is also moved
+
+git rebase -i <branchname>
+	interactive option of rebase command, comits can reordered/removed before moving
+
+git rebase <targetbranch> <rebasingbranch>
+	same as rebase, no need to be working on <rebasingbranch>, also can be used with -i option
+
+git cherry-pick <c1> <c2> <c3>...
+	picks and copies selected commits to a current branch
+
+
+-------------------------------------------------------
+WORKING WITH REMOTE REPOSITORIES
+
+
+
+git clone
+git fetch <remotename> (git fetch origin for example)
+	downloads data from remote project to local tracked branches, DOES NOT MERGE local branches
+git fetch <remotename> <remotebranch>:<localbranch>
+	downloads specified branch/commits to local specified branch/commits
+git pull <remotename>
+	fetch and then merge
+git pull --rebase
+	fetch and then rebase
+git push <remoterepo> <localbranch>
+	sends current tracked or <localbranch> tracked to <remoterepo>
+git push <remoterepo> <localbranch>:<remotebranch>
+git branch -u <remoterepo>/<remotebranch>
+git checkout -b <loclabranch> <remoterepo>/<remotebranch>
+git branch -u <remoterepo>/<remotebranch> <localbranch>
+	current or <localbranch> is tracking <remotebranch> now
+git remote
+	shows remote repositories
+git remote -v
+	shows the name of remote repository, -v also shows urls for fetch and push
+git remote add <remoterepo> <url>
+	instead of origin, remote will be called <remotename>, git remote add pb <url>, then git fetch <remoterepo> will work
+
+
+
+
+
+
+git tag
+	adds a dag to a commit, V0 or first release or some important milestone
+
+git describe
+	shows reference to tagged commits in format: <tag> <distance> <commit hash>
+
+
+
+git push <remoterepo> <branchname>:<awesomebranch>
+	same, but remote branch name will be <awesomebranch>
+git push --set-upstream <remoterepo> <localbranch>
+	create and pushes <localbranch> to <remoterepo>
+git push <remoterepo>  --delete <remotebranch>
+	deletes <remotebranch> from <remoterepo>, also removes any tracking in corresponding local branches
+
+git checkout -b <serverfix> <origin>/<serverfix>
+	creates a new branch tracking remote one
+git checkout --track <origin>/<serverfix>
+	current branch tracks remote one
+
